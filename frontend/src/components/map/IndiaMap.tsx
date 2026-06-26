@@ -29,7 +29,7 @@ const MAP_STYLE = {
             maxzoom: 19
         }
     ]
-} as any;
+};
 
 export function IndiaMap() {
     const { viewState, setViewState, layers } = useMapStore();
@@ -39,6 +39,7 @@ export function IndiaMap() {
             <Map
                 {...viewState}
                 onMove={evt => setViewState(evt.viewState)}
+                // @ts-expect-error: Maplibre StyleSpecification is deeply nested and difficult to cast perfectly
                 mapStyle={MAP_STYLE}
                 mapLib={maplibregl}
                 interactiveLayerIds={['state-fills']} // For future hover/click interactions

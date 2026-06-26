@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useDashboardStore } from '@/stores/useDashboardStore';
+import { useDashboardStore, DashboardStats, ActivityNotification } from '@/stores/useDashboardStore';
 import { wsService } from '@/api/websocket';
 import { StatCard } from '@/components/widgets/StatCard';
 import { ActivityFeed } from '@/components/widgets/ActivityFeed';
@@ -31,8 +31,8 @@ export default function DashboardPage() {
         wsService.connect();
 
         // Subscribe to relevant events
-        wsService.subscribe('stats_update', (data) => updateStats(data));
-        wsService.subscribe('activity_notification', (data) => addActivity(data));
+        wsService.subscribe('stats_update', (data) => updateStats(data as Partial<DashboardStats>));
+        wsService.subscribe('activity_notification', (data) => addActivity(data as Omit<ActivityNotification, 'id' | 'read' | 'timestamp'>));
 
         return () => {
             wsService.disconnect();

@@ -84,7 +84,7 @@ class WebSocketService {
                 // Global handler
                 this.handlers.get('any')?.forEach(handler => handler(payload));
             }
-        } catch {
+        } catch (err) {
             console.error('Failed to parse WebSocket message', err);
         }
     };

@@ -55,8 +55,10 @@ apiClient.interceptors.response.use(
                 useAuthStore.getState().setTokens(access_token, refreshToken);
                 
                 // Retry the original request with the new token
-                originalRequest.headers.Authorization = `Bearer ${access_token}`;
-                return apiClient(originalRequest);
+                if (originalRequest) {
+                    originalRequest.headers.Authorization = `Bearer ${access_token}`;
+                    return apiClient(originalRequest);
+                }
                 
             } catch (refreshError) {
                 // Refresh failed, logout the user

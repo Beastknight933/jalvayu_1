@@ -14,14 +14,14 @@ export function ClimateLayer({ layer }: ClimateLayerProps) {
 
     // Mock raster tile source for demonstration purposes
     const rasterSource = {
-        type: 'raster',
+        type: 'raster' as const,
         tiles: [
             // Using a placeholder tile service for the demonstration
             // Later this will point to our backend FastAPI tile server e.g., `/api/v1/tiles/{layer.id}/{z}/{x}/{y}.png`
             layer.url || `https://api.placeholder.com/tiles/${layer.id}/{z}/{x}/{y}.png`
         ],
         tileSize: 256
-    } as const;
+    };
 
     const rasterLayerStyle: LayerProps = {
         id: `climate-${layer.id}`,

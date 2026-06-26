@@ -62,9 +62,9 @@ export function HeatmapChart({
                                     {xLabels.map(x => {
                                         const val = getValue(x, y);
                                         return (
-                                            <TooltipProvider key={`${x}-${y}`}>
-                                                <Tooltip delayDuration={100}>
-                                                    <TooltipTrigger asChild>
+                                            <TooltipProvider key={`${x}-${y}`} delay={100}>
+                                                <Tooltip>
+                                                    <TooltipTrigger>
                                                         <div 
                                                             className="flex-1 h-7 rounded-sm transition-all hover:scale-110 cursor-pointer min-w-[32px]"
                                                             style={{ backgroundColor: colorScale(val) }}

@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { simulationsApi } from '@/api/simulations';
+import { simulationsApi, SimulationJob } from '@/api/simulations';
 import { useSimulationStore } from '@/stores/useSimulationStore';
 import { wsService } from '@/api/websocket';
 import { motion } from 'framer-motion';
@@ -35,10 +35,11 @@ export default function SimulationWorkspacePage() {
     useEffect(() => {
         // Subscribe to live WebSocket updates for this specific simulation
         const handleProgress = (data: unknown) => {
-            if (data.id === id) {
-                updateSimulation(data);
-                if (data.log) {
-                    appendLog(id, data.log);
+            const payload = data as SimulationJob & { log?: string };
+            if (payload.id === id) {
+                updateSimulation(payload);
+                if (payload.log) {
+                    appendLog(id, payload.log);
                 }
             }
         };

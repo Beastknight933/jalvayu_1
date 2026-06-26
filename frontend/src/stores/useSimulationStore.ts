@@ -30,8 +30,10 @@ export const useSimulationStore = create<SimulationState>((set) => ({
     })),
 
     clearSimulation: (simId) => set((state) => {
-        const { [simId]: _, ...restSims } = state.activeSimulations;
-        const { [simId]: __, ...restLogs } = state.liveLogs;
+        const restSims = { ...state.activeSimulations };
+        delete restSims[simId];
+        const restLogs = { ...state.liveLogs };
+        delete restLogs[simId];
         return {
             activeSimulations: restSims,
             liveLogs: restLogs
